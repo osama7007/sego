@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+  .hoverEffect {
+    @apply duration-300 hover:text-primary hover:scale-110;
+  }
+  .sectionPadding {
+    @apply pt-16;
+  }
+}
