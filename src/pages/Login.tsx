@@ -2,7 +2,7 @@ import { Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { postData } from '../api/postData';
 import Input from '../components/ui/Input';
 type Values = {
@@ -19,7 +19,7 @@ const Login = () => {
         window.location = '/home'
         return
     }
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationKey: ['login'],
         mutationFn: (params: string) => postData({
             endpoint: userLogin ? `login?${params}` : `company/login?${params}`,
@@ -51,8 +51,11 @@ const Login = () => {
             <h2 className='text-center text-2xl'>{userLogin ? 'Login as user' : 'Login as company'}</h2>
             <Input form={form} name='email' />
             <Input form={form} name='password' type='password' />
-            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit'>submit</Button>
-            <button type='button' onClick={() => setUserLogin(prev => !prev)}>{userLogin ? 'user login' : 'company login'}</button>
+            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}>submit</Button>
+            <div className='flex justify-evenly'>
+                <button type='button' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200' onClick={() => setUserLogin(prev => !prev)}>{userLogin ? 'company login' : 'user login'}</button>
+                <Link to='/signup' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200'>signup</Link>
+            </div>
         </form>
     )
 }

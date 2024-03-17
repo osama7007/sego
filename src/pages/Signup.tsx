@@ -2,12 +2,18 @@ import { Button, FileInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { Link, useNavigation } from 'react-router-dom';
 import { postData } from '../api/postData';
 import Input from '../components/ui/Input';
-import { useNavigation } from 'react-router-dom';
 type Values = {
+    name: string,
     email: string,
     password: string
+    country: string
+    overview?: string,
+    phone?: string
+    location: string
+    specialization: string
 }
 const Signup = () => {
     const [userSignup, setUserSignup] = useState(true)
@@ -18,7 +24,7 @@ const Signup = () => {
         window.location = '/home'
         return
     }
-    const { mutate } = useMutation({
+    const { mutate,isPending } = useMutation({
         mutationKey: ['register'],
         mutationFn: (params: string) => postData({
             endpoint: userSignup ? `register?${params}` : `company/register?${params}`,
@@ -32,12 +38,24 @@ const Signup = () => {
     })
     const form = useForm<Values>({
         initialValues: {
+            name: '',
             email: '',
-            password: ''
+            password: '',
+            overview: '',
+            country: '',
+            phone: '',
+            location: '',
+            specialization: ''
         },
         validate: {
+            name: (value) => value.trim().length >= 3 ? null : 'must be at least 3 characters',
             email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
             password: (value) => value.trim().length >= 8 ? null : 'password must be at least 8 characters',
+            overview: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
+            phone: (value: any) => !userSignup ? null : value?.trim().length >= 9 ? null : 'must be at least 9 numbers',
+            location:(value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
+            country: (value) => value.trim().length >= 3 ? null : 'must be at least 3 characters',
+            specialization:(value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
         }
     })
     const submitHandler = (values: Values) => {
@@ -48,7 +66,7 @@ const Signup = () => {
     return (
         <form onSubmit={form.onSubmit(submitHandler)} className='flex flex-col gap-4 w-1/3 mx-auto container sectionPadding shadow-lg p-4 mt-16'>
             <h2 className='text-center text-2xl'>{userSignup ? 'Signup as user' : 'Signup as company'}</h2>
-            <Input form={form} name='name' placeholder='company name' type='text' />
+            <Input form={form} name='name' placeholder='name' type='text' />
             <Input form={form} name='email' type='email' />
             <Input form={form} name='password' type='password' />
             <Input form={form} name='overview' type='text' hidden={userSignup} />
@@ -68,8 +86,11 @@ const Signup = () => {
                 // @ts-ignore
                 onChange={file => form.setFieldValue('image', file.name)}
             />
-            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit'>Sign up</Button>
-            <button type='button' onClick={() => setUserSignup(prev => !prev)}>{userSignup ? 'company signup' : 'user signup'}</button>
+            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}>Sign up</Button>
+            <div className='flex justify-evenly'>
+                <button type='button' onClick={() => setUserSignup(prev => !prev)}>{userSignup ? 'company signup' : 'user signup'}</button>
+                <Link to='/login' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200'>login</Link>
+            </div>
         </form>
     )
 }

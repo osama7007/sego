@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import ProfileIcon from "../../../icons/ProfileIcon";
+import Logout from "./Logout";
 const navLinks = [
     {
         route: '/home',
@@ -76,6 +77,7 @@ const Navbar = () => {
                 <ProfileIcon />
                 <span>profile</span>
             </Link>
+            <Logout />
         </nav>
     )
 }

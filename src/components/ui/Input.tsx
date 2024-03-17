@@ -11,7 +11,7 @@ const Input = ({ name, form, ...props }: Input) => {
             placeholder={name}
             id={name}
             {...props}
-            className="p-2 border border-slate-200 outline-4 m-0"
+            className={`p-2 border border-slate-200 outline-4 m-0 ${!!form?.errors[name] && 'border-red-500'}`}
         />
         <span className="text-red-500">{form?.errors[name]}</span>
     </>
