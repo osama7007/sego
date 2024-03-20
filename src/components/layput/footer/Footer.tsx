@@ -3,7 +3,7 @@ import PhoneIcon from "../../../icons/PhoneIcon"
 
 const Footer = () => {
     return (
-        <footer className="flex justify-center items-center flex-col bg-slate-200 mt-16 py-32 fixed bottom-0 left-0 right-0">
+        <footer className="flex justify-center items-center flex-col bg-slate-200 mt-16 py-32">
             <p className="text-xl">Keep In touch with us</p>
             <div className="flex items-center gap-x-4">
                 <div className='flex items-center my-8 gap-x-4'>

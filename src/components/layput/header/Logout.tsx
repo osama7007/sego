@@ -6,7 +6,7 @@ const Logout = () => {
     const navigate = useNavigate()
     const logout = () => {
         localStorage.removeItem('sego_token');
-        navigate('/login')
+        navigate('/home')
     }
     return (
         <button className="w-[20px] absolute top-12 right-10" onClick={logout}>
