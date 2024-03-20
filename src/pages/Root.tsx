@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/layput/footer/Footer";
-import Navbar from "../components/layput/header/Navbar";
 import ProtectedRoutes from "./ProtectedRoutes";
+import Navbar from "../components/layout/header/Navbar";
+import Footer from "../components/layout/footer/Footer";
 const Root = () => {
     return (
         <ProtectedRoutes>
