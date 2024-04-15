@@ -19,6 +19,7 @@ import Profile from './pages/Profile';
 import Root from './pages/Root';
 import Signup from './pages/Signup';
 import Specialization from './pages/Specialization';
+import SearchResults from './pages/SearchResults';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/search/:search",
+        element: <SearchResults />,
       },
     ],
   },

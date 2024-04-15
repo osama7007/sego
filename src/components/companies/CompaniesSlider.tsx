@@ -1,49 +1,19 @@
 
 import { Carousel } from '@mantine/carousel';
 import { Image } from '@mantine/core';
-import { images } from '../../utils/images';
-import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 import { getData } from '../../api/getData';
 
-const sliderImages = [
-    {
-        image: images.company1,
-        route: '/company/company1'
-    },
-    {
-        image: images.company2,
-        route: '/company/company2'
-    },
-    {
-        image: images.company3,
-        route: '/company/company3'
-    },
-    {
-        image: images.company4,
-        route: '/company/company4'
-    },
-    {
-        image: images.company5,
-        route: '/company/company5'
-    },
-    {
-        image: images.company6,
-        route: '/company/company6'
-    },
-    {
-        image: images.company7,
-        route: '/company/company7'
-    }
-]
 const CompaniesSlider = () => {
-    const { data } = useQuery({
+    const { data: companies } = useQuery({
         queryKey: ['companies'],
         queryFn: () => getData({
             endpoint: 'all/companies'
         }),
-        select:(data:any)=>data?.data?.message
+        select: (data: any) => data.data.message
     })
+
     return (
         <section className='sectionPadding'>
             <h2 className='text-center text-xl'>Companies</h2>
@@ -51,16 +21,17 @@ const CompaniesSlider = () => {
                 withIndicators
                 height={300}
                 slideSize="33.333333%"
-                slideGap="md"
+                slideGap="lg"
                 loop
                 align="start"
                 slidesToScroll={3}>
                 {
-                    sliderImages.map(item =>
-                        <Carousel.Slide key={item.route}>
-                            <Link to={item.route}>
-                                <Image src={item.image} className='object-cover w-full' alt={item.route} />
+                    companies?.map((company: any) =>
+                        <Carousel.Slide key={company?.id} className='relative flex flex-col justify-center items-center' >
+                            <Link to={`/company/${company?.id}`} className='w-full'>
+                                <Image src={company?.logo} className='h-full w-full' alt={company?.name} />
                             </Link>
+                            <p className='w-[96.2%] p-4 absolute bottom-0 h-[40px] text-center bg-[#f6f6f6]'>{company?.name} </p>
                         </Carousel.Slide>
                     )
                 }
