@@ -39,7 +39,7 @@ const Login = () => {
         },
         validate: {
             email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-            password: (value) => value.trim().length >= 8 ? null : 'password must be at least 8 characters',
+            // password: (value) => value.trim().length >= 8 ? null : 'password must be at least 8 characters',
         }
     })
     const submitHandler = (values: Values) => {

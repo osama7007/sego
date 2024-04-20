@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <Specialization />,
       },
       {
-        path: "/company/:slug",
+        path: "/company/:id",
         element: <Company />,
       },
       {

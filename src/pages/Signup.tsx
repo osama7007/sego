@@ -13,6 +13,7 @@ type Values = {
     overview?: string,
     phone?: string
     location: string
+    image?: string
     specialization: string
 }
 const Signup = () => {
@@ -24,10 +25,12 @@ const Signup = () => {
         window.location = '/home'
         return
     }
-    const { mutate,isPending } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationKey: ['register'],
-        mutationFn: (params: string) => postData({
-            endpoint: userSignup ? `register?${params}` : `company/register?${params}`,
+        mutationFn: (data: Values) => postData({
+            endpoint: userSignup ? `register` : `company/register`,
+            data,
+            formData:true
         }),
         onSuccess: data => {
             const token = data?.data?.authorisation?.token
@@ -45,6 +48,7 @@ const Signup = () => {
             country: '',
             phone: '',
             location: '',
+            image: '',
             specialization: ''
         },
         validate: {
@@ -53,16 +57,15 @@ const Signup = () => {
             password: (value) => value.trim().length >= 8 ? null : 'password must be at least 8 characters',
             overview: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
             phone: (value: any) => !userSignup ? null : value?.trim().length >= 9 ? null : 'must be at least 9 numbers',
-            location:(value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
+            location: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
+            image: (value: any) => !userSignup ? null : value?.trim().length >= 1 ? null : 'image is required',
             country: (value) => value.trim().length >= 3 ? null : 'must be at least 3 characters',
-            specialization:(value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
+            specialization: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
         }
     })
     const submitHandler = (values: Values) => {
-        const searchParams = new URLSearchParams(values).toString()
-        mutate(searchParams)
+        mutate(values)
     }
-
     return (
         <form onSubmit={form.onSubmit(submitHandler)} className='flex flex-col gap-4 w-1/3 mx-auto container sectionPadding shadow-lg p-4 mt-16'>
             <h2 className='text-center text-2xl'>{userSignup ? 'Signup as user' : 'Signup as company'}</h2>
@@ -78,7 +81,7 @@ const Signup = () => {
                 hidden={userSignup}
                 placeholder="Your logo"
                 // @ts-ignore
-                onChange={file => form.setFieldValue('logo', file.name)}
+                onChange={file => form.setFieldValue('logo', file)}
             />
             <FileInput
                 hidden={!userSignup}
@@ -86,6 +89,10 @@ const Signup = () => {
                 // @ts-ignore
                 onChange={file => form.setFieldValue('image', file.name)}
             />
+            {
+                userSignup &&
+                <p className='text-red-500'>{form.errors?.image}</p>
+            }
             <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}>Sign up</Button>
             <div className='flex justify-evenly'>
                 <button type='button' onClick={() => setUserSignup(prev => !prev)}>{userSignup ? 'company signup' : 'user signup'}</button>

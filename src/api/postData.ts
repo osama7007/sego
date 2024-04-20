@@ -2,7 +2,7 @@ import axios from "axios"
 type Params = {
   endpoint: string
   data?: any
-  formData?: FormData
+  formData?: boolean
 }
 const baseURL = import.meta.env.VITE_BASEURL
 export const postData = async (params: Params) => {
@@ -18,8 +18,7 @@ export const postData = async (params: Params) => {
   }
   try {
     const data = await axios.post(
-      `${baseURL}${params.endpoint}`,
-      {},
+      `${baseURL}${params.endpoint}`,params.data,
       postConfig
     )
     return data
