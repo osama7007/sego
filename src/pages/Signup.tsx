@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Link, useNavigation } from 'react-router-dom';
 import { postData } from '../api/postData';
 import Input from '../components/ui/Input';
+import SelectSpecialization from '../components/ui/SelectSpecialization';
 type Values = {
     name: string,
     email: string,
@@ -58,9 +59,7 @@ const Signup = () => {
             overview: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
             phone: (value: any) => !userSignup ? null : value?.trim().length >= 9 ? null : 'must be at least 9 numbers',
             location: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
-            image: (value: any) => !userSignup ? null : value?.trim().length >= 1 ? null : 'image is required',
             country: (value) => value.trim().length >= 3 ? null : 'must be at least 3 characters',
-            specialization: (value: any) => userSignup ? null : value?.trim().length >= 3 ? null : 'must be at least 3 characters',
         }
     })
     const submitHandler = (values: Values) => {
@@ -76,7 +75,7 @@ const Signup = () => {
             <Input form={form} name='phone' type='number' hidden={!userSignup} />
             <Input form={form} name='country' type='text' />
             <Input form={form} name='location' type='text' hidden={userSignup} />
-            <Input form={form} name='specialization' type='text' hidden={userSignup} />
+            <SelectSpecialization form={form}/>
             <FileInput
                 hidden={userSignup}
                 placeholder="Your logo"
@@ -87,7 +86,7 @@ const Signup = () => {
                 hidden={!userSignup}
                 placeholder="Your file"
                 // @ts-ignore
-                onChange={file => form.setFieldValue('image', file.name)}
+                onChange={file => form.setFieldValue('image', file)}
             />
             {
                 userSignup &&
