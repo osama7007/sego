@@ -4,6 +4,7 @@ import { Image } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getData } from '../../api/getData';
+import CompanyCard from './CompanyCard';
 
 const CompaniesSlider = () => {
     const { data: companies } = useQuery({
@@ -28,10 +29,7 @@ const CompaniesSlider = () => {
                 {
                     companies?.map((company: any) =>
                         <Carousel.Slide key={company?.id} className='relative flex flex-col justify-center items-center' >
-                            <Link to={`/company/${company?.id}`} className='w-full'>
-                                <Image src={company?.logo} className='h-full w-full' alt={company?.name} />
-                            </Link>
-                            <p className='w-[96.2%] p-4 absolute bottom-0 h-[40px] text-center bg-[#f6f6f6]'>{company?.name} </p>
+                            <CompanyCard company={company} />
                         </Carousel.Slide>
                     )
                 }

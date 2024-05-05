@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: "/specialization/:slug",
+        path: "/specialization/:id",
         element: <Specialization />,
       },
       {
