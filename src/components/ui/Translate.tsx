@@ -7,8 +7,9 @@ type TranslateProps = {
 
 const Translate: React.FC<TranslateProps> = ({ text }) => {
     const lang = sessionStorage.getItem('lang') || 'en';
+    const res = lang === 'ar' ? locale.ar?.[text] : text
     return (
-        <>{locale[lang]?.[text]}</>
+        <>{res}</>
     );
 }
 

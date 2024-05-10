@@ -103,7 +103,7 @@ const Navbar = () => {
                         <div>
                             <SearchIcon />
                             <input type="text" onChange={(e) => setSearchVal(e.target.value)} />
-                            <button onClick={getSearchHandler}>search</button>
+                            <button onClick={getSearchHandler}><Translate text="search"/></button>
                         </div>
                         <Link to='/profile' className="flex items-center gap-x-2 hoverEffect">
                             <ProfileIcon />
@@ -111,7 +111,7 @@ const Navbar = () => {
                         </Link>
                         <Logout />
                     </div>
-                    : <button onClick={() => navigate('/login')}>Login</button>
+                    : <button onClick={() => navigate('/login')}><Translate text="Login"/></button>
             }
         </nav>
     )

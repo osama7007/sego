@@ -1,22 +1,48 @@
 type LocaleType = {
-   [key: string]: { [key: string]: string }; // Index signature to accept any string keys and values
+  [key: string]: { [key: string]: string } // Index signature to accept any string keys and values
 }
- const locale:LocaleType = {
-   ar:{
-      profile:'الملف الشخصي',
-      home:'الرئيسية',
-      about:'عنا',
-      specialization:'التخصصات',
-      contact:'تواصل معنا',
-      language:'اللغة',
-   },
-   en:{
-      profile:'profile',
-      home:'home',
-      about:'about',
-      specialization:'specialization',
-      contact:'contact',
-      language:'language',
-   }
+const locale: LocaleType = {
+  ar: {
+    profile: "الملف الشخصي",
+    home: "الرئيسية",
+    about: "عنا",
+    specialization: "التخصصات",
+    contact: "تواصل معنا",
+    language: "اللغة",
+    search: "بحث",
+    yourLogo: "اللوجو",
+    Login: "تسجيل الدخول",
+    "Keep In touch with us": "كن على تواصل معنا",
+    "Add Project": "اضف مشروع",
+    "update Project": "تحديث المشروع",
+    "update company": "تحديث الشركة",
+    "About us": "عنا",
+    Projects: "المشاريع",
+    update: "تحديث",
+    location: "الموقع",
+    username: "الاسم الشخصي",
+    "Contact us": "اتصل بنا",
+    "are you sure you want to delete this project":
+      "هل انت متاكد من حذف المشروع",
+    Cancel: "إلغاء",
+    Confirm: "تأكيد",
+    password: "الرقم السري",
+    name: "الاسم",
+    submit: "تأكيد",
+    country: "الدولة",
+    phone: "الهاتف",
+    "Signup as user": "التسجيل كفرد",
+    "Signup as company": "التسجيل كشركة",
+    "company login": "دخول كشركة",
+    "user login": "دخول كفرد",
+    "Sign up": "التسجيل",
+    "Login as user": "تسجيل الدخول كفرد",
+    "Login as company": "تسجيل الدخول كشركة",
+    description: "الوصف",
+    email: "البريد الالكتروني",
+    overview: "عن المشروع",
+    "user signup": "تسجيل فرد",
+    "company signup": "تسجيل شركة",
+  },
 }
 export default locale

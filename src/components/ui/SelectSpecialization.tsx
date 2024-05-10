@@ -1,10 +1,12 @@
 import { Select } from "@mantine/core"
 import { useQuery } from "@tanstack/react-query"
 import { getData } from "../../api/getData"
+import useTranslate from "../../hooks/useTranslate"
 type Props = {
     form: any
 }
 const SelectSpecialization = ({ form }: Props) => {
+    const locale:any = useTranslate()
     const { data } = useQuery({
         queryKey: ['get-specializations'],
         queryFn: () => getData({
@@ -20,8 +22,8 @@ const SelectSpecialization = ({ form }: Props) => {
         <div>
             <Select
                 data={data || []}
-                label="specialization"
-                placeholder="specialization"
+                label={locale?.specialization || 'specialization'}
+                placeholder={locale?.specialization || 'specialization'}
                 onChange={(_, { id }: any) => {
                     form.setFieldValue('specialization', id)
                 }}

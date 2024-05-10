@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { postData } from '../api/postData';
 import Input from '../components/ui/Input';
+import Translate from '../components/ui/Translate';
 type Values = {
     email: string,
     password: string
@@ -48,13 +49,13 @@ const Login = () => {
     }
     return (
         <form onSubmit={form.onSubmit(submitHandler)} className='flex flex-col gap-8 w-1/3 mx-auto container sectionPadding shadow-lg p-4 mt-16'>
-            <h2 className='text-center text-2xl'>{userLogin ? 'Login as user' : 'Login as company'}</h2>
+            <h2 className='text-center text-2xl'>{userLogin ? <Translate text='Login as user'/> : <Translate text='Login as company'/>}</h2>
             <Input form={form} name='email' />
             <Input form={form} name='password' type='password' />
-            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}>submit</Button>
+            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}><Translate text='submit'/></Button>
             <div className='flex justify-evenly'>
-                <button type='button' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200' onClick={() => setUserLogin(prev => !prev)}>{userLogin ? 'company login' : 'user login'}</button>
-                <Link to='/signup' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200'>signup</Link>
+                <button type='button' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200' onClick={() => setUserLogin(prev => !prev)}>{userLogin ? <Translate text='company login'/> : <Translate text='user login'/>}</button>
+                <Link to='/signup' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200'><Translate text='signup'/></Link>
             </div>
         </form>
     )

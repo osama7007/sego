@@ -6,6 +6,8 @@ import { Link, useNavigation } from 'react-router-dom';
 import { postData } from '../api/postData';
 import Input from '../components/ui/Input';
 import SelectSpecialization from '../components/ui/SelectSpecialization';
+import Translate from '../components/ui/Translate';
+import useTranslate from '../hooks/useTranslate';
 type Values = {
     name: string,
     email: string,
@@ -18,6 +20,7 @@ type Values = {
     specialization: string
 }
 const Signup = () => {
+    const locale: any = useTranslate()
     const [userSignup, setUserSignup] = useState(true)
     const navigate = useNavigation()
     const token = localStorage.getItem('sego_token')
@@ -31,7 +34,7 @@ const Signup = () => {
         mutationFn: (data: Values) => postData({
             endpoint: userSignup ? `register` : `company/register`,
             data,
-            formData:true
+            formData: true
         }),
         onSuccess: data => {
             const token = data?.data?.authorisation?.token
@@ -67,7 +70,7 @@ const Signup = () => {
     }
     return (
         <form onSubmit={form.onSubmit(submitHandler)} className='flex flex-col gap-4 w-1/3 mx-auto container sectionPadding shadow-lg p-4 mt-16'>
-            <h2 className='text-center text-2xl'>{userSignup ? 'Signup as user' : 'Signup as company'}</h2>
+            <h2 className='text-center text-2xl'>{userSignup ? <Translate text='Signup as user' /> : <Translate text='Signup as company' />}</h2>
             <Input form={form} name='name' placeholder='name' type='text' />
             <Input form={form} name='email' type='email' />
             <Input form={form} name='password' type='password' />
@@ -75,16 +78,16 @@ const Signup = () => {
             <Input form={form} name='phone' type='number' hidden={!userSignup} />
             <Input form={form} name='country' type='text' />
             <Input form={form} name='location' type='text' hidden={userSignup} />
-            <SelectSpecialization form={form}/>
+            <SelectSpecialization form={form} />
             <FileInput
                 hidden={userSignup}
-                placeholder="Your logo"
+                placeholder={locale?.yourLogo || "Your logo"}
                 // @ts-ignore
                 onChange={file => form.setFieldValue('logo', file)}
             />
             <FileInput
                 hidden={!userSignup}
-                placeholder="Your file"
+                placeholder={locale?.yourLogo || "Your logo"}
                 // @ts-ignore
                 onChange={file => form.setFieldValue('image', file)}
             />
@@ -92,10 +95,10 @@ const Signup = () => {
                 userSignup &&
                 <p className='text-red-500'>{form.errors?.image}</p>
             }
-            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}>Sign up</Button>
+            <Button className='p-1 bg-primary hover:bg-secondary duration-300 w-full' type='submit' loading={isPending}><Translate text='Sign up' /></Button>
             <div className='flex justify-evenly'>
-                <button type='button' onClick={() => setUserSignup(prev => !prev)}>{userSignup ? 'company signup' : 'user signup'}</button>
-                <Link to='/login' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200'>login</Link>
+                <button type='button' onClick={() => setUserSignup(prev => !prev)}>{userSignup ? <Translate text='company signup' /> : <Translate text='user signup' />}</button>
+                <Link to='/login' className='bg-slate-200 p-2 rounded hover:bg-slate-300 duration-200'> <Translate text='Login' /> </Link>
             </div>
         </form>
     )

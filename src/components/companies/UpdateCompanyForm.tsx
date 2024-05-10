@@ -3,6 +3,8 @@ import Input from "../ui/Input"
 import { useMutation } from "@tanstack/react-query"
 import { postData } from "../../api/postData"
 import { FileInput } from "@mantine/core"
+import Translate from "../ui/Translate"
+import useTranslate from "../../hooks/useTranslate"
 type UpdateCompanyForm = {
   id:string
 }
@@ -14,6 +16,8 @@ type Values = {
     specialization: string
 }
 const UpdateCompanyForm = ({id}:UpdateCompanyForm) => {
+  const locale:any = useTranslate()
+
   const { mutate } = useMutation({
     mutationKey: ['register'],
     mutationFn: (data: Values) => postData({
@@ -40,14 +44,14 @@ const UpdateCompanyForm = ({id}:UpdateCompanyForm) => {
 })
   return (
     <form onSubmit={form.onSubmit((values)=>mutate(values))} className='flex flex-col gap-4 w-1/3 mx-auto container sectionPadding shadow-lg p-4 mt-16'>
-    <h2 className='text-center text-2xl'>update company</h2>
+    <h2 className='text-center text-2xl'><Translate text="update company"/></h2>
     <Input form={form} name='name' placeholder='name' type='text' />
     <Input form={form} name='email' type='email' />
     <Input form={form} name='overview' type='text'  />
     <Input form={form} name='specialization' type='text'  />
     <FileInput
         
-        placeholder="Your logo"
+        placeholder={locale?.yourLogo || "Your logo"}
         // @ts-ignore
         onChange={file => form.setFieldValue('logo', file)}
     />
@@ -55,7 +59,7 @@ const UpdateCompanyForm = ({id}:UpdateCompanyForm) => {
       form.errors?.logo &&
         <p className='text-red-500'>{form.errors?.logo}</p>
     }
-    <button type="submit">update</button>
+    <button type="submit"><Translate text="update"/></button>
 </form>
   )
 }

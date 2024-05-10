@@ -2,11 +2,12 @@ import { Image } from '@mantine/core';
 import { images } from '../utils/images';
 import PhoneIcon from '../icons/PhoneIcon';
 import MailIcon from '../icons/MailIcon';
+import Translate from '../components/ui/Translate';
 
 const Profile = () => {
     return (
         <main className='container flex flex-col items-center justify-center gap-8 mx-auto sectionPadding'>
-            <h2 className='text-2xl'>use name</h2>
+            <h2 className='text-2xl'><Translate text='username'/></h2>
             <div className='w-[200px] h-[200px] rounded-full overflow-hidden'>
                 <Image src={images.profile} className='w-full h-full' alt='profile'/>
             </div>

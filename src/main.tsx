@@ -64,7 +64,7 @@ const router = createBrowserRouter([
 ]);
 const queryClient = new QueryClient()
 
-const lang = sessionStorage.getItem('lang')
+const lang = sessionStorage.getItem('lang') || 'en'
 const html = document.querySelector('html')
 lang === 'en' ? html?.setAttribute('dir','ltr') :  html?.setAttribute('dir','rtl')
 ReactDOM.createRoot(document.getElementById('root')!).render(

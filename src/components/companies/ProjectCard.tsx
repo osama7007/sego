@@ -7,6 +7,8 @@ import DeleteIcon from "../../icons/DeleteIcon"
 import EditIcon from "../../icons/EditIcon"
 import { Project } from "../../pages/Company"
 import Input from "../ui/Input"
+import Translate from "../ui/Translate"
+import useTranslate from "../../hooks/useTranslate"
 type ProjectCard = {
     project: Project
 }
@@ -17,6 +19,8 @@ type Values = {
     type?: 'edit' | 'delete'
 }
 const ProjectCard = ({ project }: ProjectCard) => {
+    const locale:any = useTranslate()
+
     const [openForm, setOpenForm] = useState(false)
     const [openConfirmation, setOpenConfirmation] = useState(false)
     const queryClient = useQueryClient()
@@ -68,7 +72,7 @@ const ProjectCard = ({ project }: ProjectCard) => {
                     <Input form={form} name='name' placeholder='name' type='text' />
                     <Input form={form} name='description' type='text' />
                     <FileInput
-                        placeholder="Your file"
+                        placeholder={locale?.yourLogo || "Your logo"}
                         // @ts-ignore
                         onChange={file => form.setFieldValue('image1', file)}
                     />
@@ -80,10 +84,10 @@ const ProjectCard = ({ project }: ProjectCard) => {
                 </form>
             </Modal>
             <Modal opened={openConfirmation} onClose={() => setOpenConfirmation(false)} size={1000} centered>
-                <h3 className="text-2xl text-center capitalize">are you sure you want to delete this project</h3>
+                <h3 className="text-2xl text-center capitalize"><Translate text="are you sure you want to delete this project" /></h3>
                 <div className="flex items-center gap-5 justify-center my-8">
-                    <button onClick={() => setOpenConfirmation(false)}>cancel</button>
-                    <button onClick={() => mutate({ type: 'delete' } as Values)}>confirm</button>
+                    <button onClick={() => setOpenConfirmation(false)}><Translate text="Cancel" /></button>
+                    <button onClick={() => mutate({ type: 'delete' } as Values)}><Translate text="Confirm" /></button>
                 </div>
             </Modal>
         </div>
