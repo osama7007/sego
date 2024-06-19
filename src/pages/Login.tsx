@@ -29,6 +29,7 @@ const Login = () => {
             if (data?.status === 200) {
                 const token = data?.data?.authorisation?.token
                 localStorage.setItem('sego_token', token)
+                localStorage.setItem('sego_user', JSON.stringify(userLogin ? data?.data?.user : data?.data?.message))
                 navigate('/home')
             }
         }

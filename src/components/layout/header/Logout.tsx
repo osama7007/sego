@@ -6,6 +6,7 @@ const Logout = () => {
     const navigate = useNavigate()
     const logout = () => {
         localStorage.removeItem('sego_token');
+        localStorage.removeItem('sego_user');
         navigate('/home')
     }
     return (

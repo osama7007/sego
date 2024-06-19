@@ -40,16 +40,16 @@ const ProjectCard = ({ project }: ProjectCard) => {
     })
 
     const { mutate } = useMutation({
-        mutationKey: ['delete project', project?.id],
+        mutationKey: ['delete-project', project?.id],
         mutationFn: (data: Values) => postData({
             endpoint: data.type === 'delete' ? `DeleteProject/${project.id}` : `updateProject/${project.id}`,
             data: data.type === 'delete' ? {
-                _method: 'delete'
+                _method: 'DELETE'
             } : data,
             formData: data.type === 'edit'
         }),
         onSuccess: () => {
-            queryClient.refetchQueries({ queryKey: ['get company', project.id] })
+            queryClient.refetchQueries({ queryKey: ['get-company', project.id] })
         }
     })
 
